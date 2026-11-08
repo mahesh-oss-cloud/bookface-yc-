@@ -1,8 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import MobileBottomNav from "@/components/MobileBottomNav";
 
 type Props = {
   children: React.ReactNode;
@@ -18,18 +19,18 @@ export default function SiteChrome({ children, email }: Props) {
   return (
     <>
       <Navbar email={email} />
-      <main className="flex-1">{children}</main>
-      <footer className="border-t border-[var(--color-line)] mt-20">
-        <div className="shell py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <main className="mobile-app-main flex-1">{children}</main>
+      <footer className="app-footer mt-10 border-t border-[var(--color-line)] lg:mt-20">
+        <div className="shell flex flex-col items-start justify-between gap-6 py-8 md:flex-row md:items-center md:py-10">
           <div className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/yc-logo.svg" alt="Y Combinator" className="w-6 h-6 rounded-[5px]" />
+            <img src="/yc-logo.svg" alt="Y Combinator" className="h-6 w-6 rounded-[5px]" />
             <div className="flex flex-col items-start gap-0.5">
               <div className="wordmark text-[16px] leading-none">Bookface</div>
               <div className="wordmark text-[10px] leading-none text-3">by Y Combinator</div>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-2">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-2">
             <Link href="/companies" className="hover:text-[var(--color-ink)]">Companies</Link>
             <Link href="/founders" className="hover:text-[var(--color-ink)]">Founders</Link>
             <Link href="/network" className="hover:text-[var(--color-ink)]">Network</Link>
@@ -41,6 +42,7 @@ export default function SiteChrome({ children, email }: Props) {
           <div className="kicker">Private access · Since 2005</div>
         </div>
       </footer>
+      <MobileBottomNav />
     </>
   );
 }
