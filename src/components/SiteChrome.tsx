@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import MobileBottomNav from "@/components/MobileBottomNav";
+import MobileTabBar from "@/components/MobileTabBar";
+import Link from "next/link";
 
 type Props = {
   children: React.ReactNode;
@@ -14,14 +15,21 @@ export default function SiteChrome({ children, email }: Props) {
   const pathname = usePathname();
   const isSignIn = pathname === "/signin";
 
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
+      // The site remains fully usable when service-worker registration is unavailable.
+    });
+  }, []);
+
   if (isSignIn) return <main className="flex-1">{children}</main>;
 
   return (
     <>
       <Navbar email={email} />
-      <main className="mobile-app-main flex-1">{children}</main>
-      <footer className="app-footer mt-10 border-t border-[var(--color-line)] lg:mt-20">
-        <div className="shell flex flex-col items-start justify-between gap-6 py-8 md:flex-row md:items-center md:py-10">
+      <main className="mobile-page flex-1">{children}</main>
+      <footer className="mobile-footer mt-20 border-t border-[var(--color-line)]">
+        <div className="shell flex flex-col items-start justify-between gap-6 py-10 md:flex-row md:items-center">
           <div className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/yc-logo.svg" alt="Y Combinator" className="h-6 w-6 rounded-[5px]" />
@@ -30,7 +38,7 @@ export default function SiteChrome({ children, email }: Props) {
               <div className="wordmark text-[10px] leading-none text-3">by Y Combinator</div>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-2">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-2">
             <Link href="/companies" className="hover:text-[var(--color-ink)]">Companies</Link>
             <Link href="/founders" className="hover:text-[var(--color-ink)]">Founders</Link>
             <Link href="/network" className="hover:text-[var(--color-ink)]">Network</Link>
@@ -42,7 +50,7 @@ export default function SiteChrome({ children, email }: Props) {
           <div className="kicker">Private access · Since 2005</div>
         </div>
       </footer>
-      <MobileBottomNav />
+      <MobileTabBar />
     </>
   );
 }
