@@ -196,3 +196,7 @@ export function getPartnerByName(name: string | undefined | null): YcPartner | u
   const normalized = name.trim().toLowerCase();
   return YC_PARTNERS.find((partner) => partner.name.toLowerCase() === normalized);
 }
+
+export function getPartnerById(id: string): YcPartner | undefined {
+  return YC_PARTNERS.find((partner) => partner.id === id);
+}
