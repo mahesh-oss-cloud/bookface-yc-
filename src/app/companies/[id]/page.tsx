@@ -107,7 +107,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
                 href={groupPartner ? `/partners#${groupPartner.id}` : "/partners"}
                 className="flex items-center gap-3 rounded-lg border border-[var(--color-line)] p-3 transition-colors hover:border-[var(--color-line-strong)]"
               >
-                <PartnerPortrait name={company.groupPartner} image={groupPartner?.image} />
+                <PartnerPortrait name={company.groupPartner} partnerId={groupPartner?.id} hasImage={Boolean(groupPartner?.image)} />
                 <div className="min-w-0">
                   <div className="truncate text-[13px] font-medium">{company.groupPartner}</div>
                   <div className="mt-0.5 text-[11.5px] text-2">{groupPartner?.role || "Y Combinator partner"}</div>
