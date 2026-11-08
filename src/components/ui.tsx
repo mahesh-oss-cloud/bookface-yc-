@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, MessageSquare } from "lucide-react";
 import { getPartnerByName } from "@/data/partners";
-import { getCompany, type Company, type Founder } from "@/lib/data";
+import type { Company, Founder } from "@/lib/data";
 import { batchLabel, initials } from "@/lib/format";
 
 export function Avatar({
@@ -124,7 +124,6 @@ export function MessageLink({
 }
 
 export function FounderRow({ founder }: { founder: Founder }) {
-  const company = founder.companySlug ? getCompany(founder.companySlug) : undefined;
   return (
     <div className="card card-hover flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-center sm:gap-4">
       <Link href={`/founders/${founder.id}`} className="flex min-w-0 flex-1 items-center gap-4">
@@ -144,7 +143,7 @@ export function FounderRow({ founder }: { founder: Founder }) {
         <BatchChip batch={founder.batch} />
         {founder.industry[0] && <span className="chip">{founder.industry[0]}</span>}
         {founder.location && <span className="chip max-w-[170px] truncate">{founder.location}</span>}
-        {company?.groupPartner && <PartnerInline name={company.groupPartner} />}
+        {founder.groupPartner && <PartnerInline name={founder.groupPartner} />}
       </div>
       <MessageLink founderId={founder.id} small />
     </div>
@@ -178,7 +177,6 @@ export function CompanyRow({ company }: { company: Company }) {
 }
 
 export function FounderGridCard({ founder }: { founder: Founder }) {
-  const company = founder.companySlug ? getCompany(founder.companySlug) : undefined;
   return (
     <Link href={`/founders/${founder.id}`} className="card card-hover flex flex-col gap-3 p-4">
       <div className="flex items-start justify-between gap-3">
@@ -192,8 +190,8 @@ export function FounderGridCard({ founder }: { founder: Founder }) {
       </div>
       <div className="mt-auto flex flex-col gap-2 border-t border-[var(--color-line)] pt-3">
         <div className="truncate text-[11px] text-3">{founder.location || "Location not listed"}</div>
-        {company?.groupPartner && (
-          <span className="text-[11px] text-2">Group partner · {company.groupPartner}</span>
+        {founder.groupPartner && (
+          <span className="text-[11px] text-2">Group partner · {founder.groupPartner}</span>
         )}
       </div>
     </Link>
