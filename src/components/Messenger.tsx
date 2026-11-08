@@ -12,10 +12,17 @@ export type Contact = {
   company: string;
   role: string;
   image: string | null;
+  kind?: "founder" | "partner";
 };
 
 type Msg = { id: string; body: string; at: number };
 type Thread = { contact: Contact; messages: Msg[] };
+
+function contactProfileHref(contact: Contact): string {
+  return contact.kind === "partner"
+    ? `/partners#${contact.id.replace(/^partner:/, "")}`
+    : `/founders/${contact.id}`;
+}
 
 const KEY = "bookface.threads.v1";
 
@@ -87,7 +94,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
         saveThreads(next);
         return next;
       });
-      toast.success(`Message sent to ${active.contact.name.split(" ")[0]}`);
+      toast.info("Saved in this browser. This message has not been delivered.");
     },
     [active]
   );
@@ -123,7 +130,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
                 </div>
                 <div className="text-[13px] font-medium mt-3">No conversations yet</div>
                 <div className="text-[12px] text-2 mt-1 leading-relaxed">
-                  Find a founder in the directory and send them a message.
+                  Open a founder or partner profile and start a conversation. Messages are currently stored in this browser only.
                 </div>
                 <Link href="/founders" className="btn btn-sm mt-4">
                   Browse founders
@@ -173,7 +180,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
                   </button>
                   <Avatar name={active.contact.name} image={active.contact.image} size="sm" />
                   <div className="min-w-0 flex-1">
-                    <Link href={`/founders/${active.contact.id}`} className="text-[13.5px] font-medium hover:underline">
+                    <Link href={contactProfileHref(active.contact)} className="text-[13.5px] font-medium hover:underline">
                       {active.contact.name}
                     </Link>
                     <div className="text-[11.5px] text-2 truncate">
@@ -181,8 +188,8 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
                       {active.contact.company ? ` · ${active.contact.company}` : ""}
                     </div>
                   </div>
-                  <Link href={`/founders/${active.contact.id}`} className="btn btn-sm">
-                    Profile
+                  <Link href={contactProfileHref(active.contact)} className="btn btn-sm">
+                    {active.contact.kind === "partner" ? "Partner" : "Profile"}
                   </Link>
                 </div>
 
@@ -192,7 +199,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
                       <Avatar name={active.contact.name} image={active.contact.image} size="lg" />
                       <div className="text-[14px] font-medium mt-3">{active.contact.name}</div>
                       <div className="text-[12.5px] text-2 mt-1 max-w-[260px]">
-                        Start the conversation. Messages are delivered privately to their Bookface inbox.
+                        Messages are saved in this browser only. Delivery to the recipient is not connected yet.
                       </div>
                     </div>
                   ) : (
@@ -221,7 +228,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
                 </div>
                 <div className="text-[14px] font-medium mt-4">Your messages</div>
                 <div className="text-[12.5px] text-2 mt-1 max-w-[280px]">
-                  Select a conversation, or start a new one with any founder in the directory.
+                  Select a conversation, or open a founder or partner profile to start one. Messages are currently stored in this browser only.
                 </div>
                 <button onClick={() => setComposeOpen(true)} className="btn btn-accent btn-sm mt-4">
                   <Plus size={14} /> New message
