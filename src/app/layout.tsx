@@ -25,11 +25,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <footer className="border-t border-[var(--color-line)] mt-20">
           <div className="shell py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-center gap-2.5">
-              <span className="w-6 h-6 rounded-[5px] bg-[var(--color-ink)] text-white flex items-center justify-center font-mono text-[11px] font-semibold">
-                B
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/yc-logo.svg" alt="Y Combinator" className="w-6 h-6 rounded-[5px]" />
               <div>
-                <div className="text-[13px] font-medium">Bookface</div>
+                <div className="wordmark text-[16px] leading-tight">Bookface</div>
                 <div className="text-[11.5px] text-3">The private YC founder community</div>
               </div>
             </div>

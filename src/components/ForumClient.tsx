@@ -179,7 +179,7 @@ export default function ForumClient() {
               ...t,
               replies: [
                 ...t.replies,
-                { id: `r-${Date.now()}`, author: "You", company: "Blackbird", body: text, votes: 0 },
+                { id: `r-${Date.now()}`, author: "You", company: "Blackbird Finance", body: text, votes: 0 },
               ],
             }
           : t
@@ -195,8 +195,8 @@ export default function ForumClient() {
       title,
       body,
       author: "You",
-      company: "Blackbird",
-      batch: "S26",
+      company: "Blackbird Finance",
+      batch: "W27",
       tag: newTag,
       votes: 0,
       at: Date.now(),

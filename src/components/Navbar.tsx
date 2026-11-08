@@ -28,11 +28,9 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-[var(--color-line)]">
       <div className="shell h-14 flex items-center gap-4">
         <Link href="/" className="flex items-center gap-2.5 shrink-0" onClick={() => setOpen(false)}>
-          <span className="w-7 h-7 rounded-[6px] bg-[var(--color-ink)] text-white flex items-center justify-center font-mono text-[13px] font-semibold">
-            B
-          </span>
-          <span className="font-semibold tracking-tight text-[15px]">Bookface</span>
-          <span className="chip !py-0.5 !text-[9px] hidden sm:inline-flex">YC</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/yc-logo.svg" alt="Y Combinator" className="w-7 h-7 rounded-[6px]" />
+          <span className="wordmark text-[20px] leading-none">Bookface</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1 ml-2">

@@ -16,6 +16,7 @@ export type Company = {
   teamSize: number | null;
   status: string;
   top: boolean;
+  description?: string;
 };
 
 export type Founder = {
@@ -29,6 +30,7 @@ export type Founder = {
   location: string;
   industry: string[];
   top: boolean;
+  bio?: string;
 };
 
 const BLACKBIRD_FOUNDERS: Founder[] = [
@@ -36,67 +38,73 @@ const BLACKBIRD_FOUNDERS: Founder[] = [
     id: "mahesh-bal",
     name: "Mahesh Bal",
     image: null,
-    company: "Blackbird",
+    company: "Blackbird Finance",
     companySlug: "blackbird",
-    role: "Co-founder & CFO",
-    batch: "S26",
-    location: "India",
-    industry: ["Fintech", "B2B"],
+    role: "Founder & CFO",
+    batch: "W27",
+    location: "Hyderabad, India",
+    industry: ["Fintech", "B2B", "SaaS"],
     top: true,
+    bio: "Leads Blackbird's finances and helps shape how the product handles the paperwork behind getting paid.",
   },
   {
     id: "saharsh-keerthi",
     name: "Saharsh Keerthi",
     image: null,
-    company: "Blackbird",
+    company: "Blackbird Finance",
     companySlug: "blackbird",
     role: "Co-founder & CEO",
-    batch: "S26",
-    location: "India",
-    industry: ["Fintech", "B2B"],
+    batch: "W27",
+    location: "Hyderabad, India",
+    industry: ["Fintech", "B2B", "SaaS"],
     top: true,
+    bio: "Leads the company and keeps the team focused on the freelancers and businesses using Blackbird.",
   },
   {
     id: "arhaan-rahil-mohammed",
     name: "Arhaan Rahil Mohammed",
     image: null,
-    company: "Blackbird",
+    company: "Blackbird Finance",
     companySlug: "blackbird",
     role: "Co-founder & CTO",
-    batch: "S26",
-    location: "India",
-    industry: ["Fintech", "B2B"],
+    batch: "W27",
+    location: "Hyderabad, India",
+    industry: ["Fintech", "B2B", "SaaS"],
     top: true,
+    bio: "Leads engineering, from the customer experience to security and the files Blackbird prepares.",
   },
   {
     id: "satwik-reddy",
     name: "Satwik Reddy",
     image: null,
-    company: "Blackbird",
+    company: "Blackbird Finance",
     companySlug: "blackbird",
     role: "Co-founder & COO",
-    batch: "S26",
-    location: "India",
-    industry: ["Fintech", "B2B"],
+    batch: "W27",
+    location: "Hyderabad, India",
+    industry: ["Fintech", "B2B", "SaaS"],
     top: true,
+    bio: "Leads operations and the day-to-day work behind Blackbird's compliance workflows.",
   },
 ];
 
 const BLACKBIRD_COMPANY: Company = {
   id: "blackbird",
-  name: "Blackbird",
-  oneLiner: "Financial OS for freelancers — invoicing, GST compliance, and getting paid faster.",
-  batch: "Summer 2026",
-  batchShort: "S26",
-  location: "India",
-  industry: ["Fintech", "B2B"],
-  tags: ["Invoicing", "Accounting", "Freelancer"],
-  logo: null,
-  website: "https://blackbird.finance",
+  name: "Blackbird Finance",
+  oneLiner: "AI GST and export compliance for Indian freelancers paid from abroad.",
+  batch: "Winter 2027",
+  batchShort: "W27",
+  location: "Hyderabad, Telangana, India",
+  industry: ["Fintech", "B2B", "SaaS"],
+  tags: ["GST", "Export compliance", "Invoicing", "AI"],
+  logo: "/blackbird.png",
+  website: "https://www.blackbirdfinance.net",
   launchedYear: 2026,
   teamSize: 4,
   status: "Active",
   top: true,
+  description:
+    "Blackbird Finance is the financial OS for Indian freelancers who bill clients abroad. It reads bills, statements and payment advices, matches every payment to its invoice, and prepares GST returns and export filings overnight — so the month closes before you wake up. Built in Hyderabad, for the people building their own businesses.",
 };
 
 let companyCache: Company[] | null = null;

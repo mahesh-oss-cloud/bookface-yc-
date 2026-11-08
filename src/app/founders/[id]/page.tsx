@@ -87,13 +87,14 @@ export default async function FounderDetailPage({ params }: { params: Promise<{ 
 
           <section className="mt-10">
             <div className="kicker mb-2">Profile</div>
-            <p className="text-[14px] leading-relaxed text-2 max-w-[640px]">
-              {founder.name} is {founder.role.toLowerCase()} at {founder.company || "a YC company"}
-              {founder.batch ? `, part of the ${batchLabel(founder.batch)} batch` : ""}
-              {founder.location ? `, based in ${founder.location}` : ""}.{" "}
-              {founder.industry.length > 0
-                ? `Works across ${founder.industry.join(", ")}.`
-                : ""}
+            <p className="text-[14.5px] leading-relaxed text-2 max-w-[640px]">
+              {founder.bio
+                ? founder.bio
+                : `${founder.name} is ${founder.role.toLowerCase()} at ${
+                    founder.company || "a YC company"
+                  }${founder.batch ? `, part of the ${batchLabel(founder.batch)} batch` : ""}${
+                    founder.location ? `, based in ${founder.location}` : ""
+                  }.${founder.industry.length > 0 ? ` Works across ${founder.industry.join(", ")}.` : ""}`}
             </p>
           </section>
 

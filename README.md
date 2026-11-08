@@ -19,7 +19,7 @@ The private Y Combinator founder community — a searchable directory of every Y
 
 Company and founder records are fetched from YC's public directory index by `scripts/fetch-yc-data.mjs` and `scripts/fetch-founders-all.mjs`, then stored as static JSON in `src/data/`. The secured index caps each query at 1,000 hits, so the fetcher partitions queries by batch and numeric ID range to retrieve the full set.
 
-Blackbird (S26) and its four co-founders are seeded manually in `src/lib/data.ts`.
+Blackbird Finance (W27) and its four founders are seeded manually in `src/lib/data.ts`, using details and the brand mark from blackbirdfinance.net.
 
 Refresh the data with:
 
@@ -54,4 +54,3 @@ npm start
 
 The project deploys to Vercel with `vercel.json` pinning the Next.js framework and `next build --webpack`. Data JSON files are included in server bundles via `outputFileTracingIncludes` in `next.config.ts`.
 
-This is an independent product demo and is not affiliated with or endorsed by Y Combinator.

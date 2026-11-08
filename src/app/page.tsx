@@ -46,7 +46,11 @@ export default function HomePage() {
         <div className="shell py-16 md:py-24">
           <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-20 items-start">
             <div>
-              <div className="kicker mb-5">Y Combinator · Founder Community</div>
+              <div className="flex items-center gap-2 mb-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/yc-logo.svg" alt="" className="w-4 h-4 rounded-[3px]" />
+                <div className="kicker">Y Combinator · Founder Community</div>
+              </div>
               <h1 className="text-[40px] md:text-[56px] leading-[1.02] tracking-[-0.035em] font-semibold">
                 The collective brain
                 <br />

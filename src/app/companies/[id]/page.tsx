@@ -76,6 +76,13 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
 
+          {company.description && (
+            <div className="mt-8 max-w-[660px]">
+              <div className="kicker mb-2">About</div>
+              <p className="text-[14px] leading-relaxed text-2">{company.description}</p>
+            </div>
+          )}
+
           {website && (
             <a
               href={website}
