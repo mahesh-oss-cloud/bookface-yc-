@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           position="bottom-right"
           toastOptions={{
             style: {
-              fontFamily: "'Outfit', system-ui, sans-serif",
+              fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: "13px",
               background: "#fff",
               border: "1px solid #e7e5e4",
