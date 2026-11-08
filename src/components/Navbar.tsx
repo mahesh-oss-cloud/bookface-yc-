@@ -86,7 +86,6 @@ export default function Navbar({ email }: { email: string }) {
           <div className="hidden md:flex items-center gap-2 pl-2 border-l border-[var(--color-line)]">
             <div className="max-w-[150px]">
               <div className="truncate text-[11px] font-medium">{email}</div>
-              <div className="text-[10px] text-[var(--color-ink-3)]">Email unverified</div>
             </div>
             <button type="button" onClick={signOut} disabled={signingOut} className="btn btn-sm" title="Sign out">
               <LogOut size={13} />
@@ -133,8 +132,7 @@ export default function Navbar({ email }: { email: string }) {
             <div className="mt-2 border-t border-[var(--color-line)] pt-3 flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-[12px] font-medium">{email}</div>
-                <div className="text-[10px] text-[var(--color-ink-3)]">Email unverified</div>
-              </div>
+                </div>
               <button type="button" onClick={signOut} disabled={signingOut} className="btn btn-sm shrink-0">
                 <LogOut size={13} /> {signingOut ? "Signing out…" : "Sign out"}
               </button>
