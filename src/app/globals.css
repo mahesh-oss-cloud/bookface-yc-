@@ -323,3 +323,57 @@ body {
     padding-top: env(safe-area-inset-top, 0px);
   }
 }
+
+
+/* Additional small-screen resilience for dense directory and detail layouts. */
+@media (max-width: 639px) {
+  .mobile-app-main > .shell.py-10,
+  .mobile-app-main > .shell.py-8 {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .mobile-app-main .card {
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .mobile-app-main .grid,
+  .mobile-app-main .flex {
+    min-width: 0;
+  }
+
+  .mobile-app-main .overflow-x-auto {
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .mobile-app-main .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-messenger .grid {
+    min-height: min(72dvh, 680px) !important;
+  }
+
+  .mobile-messenger .max-h-\\[560px\\] {
+    max-height: 68dvh;
+  }
+}
+
+@media (max-height: 480px) and (orientation: landscape) and (max-width: 1023px) {
+  .mobile-tabbar {
+    padding-top: 3px;
+    padding-bottom: calc(3px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-tabbar-link {
+    min-height: 42px;
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .mobile-app-main {
+    padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+  }
+}
