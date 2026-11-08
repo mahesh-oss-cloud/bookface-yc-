@@ -324,9 +324,6 @@ body {
   .mobile-tabbar-link {
     font-size: 9px;
   }
-
-    font-size: 18px;
-  }
 }
 
 @media (display-mode: standalone) {
