@@ -28,24 +28,32 @@ export function Avatar({
 
 export function PartnerPortrait({
   name,
-  image,
+  partnerId,
+  hasImage = false,
   size = "md",
 }: {
   name: string;
-  image?: string | null;
+  partnerId?: string;
+  hasImage?: boolean;
   size?: "sm" | "md" | "lg";
 }) {
   const classes =
     size === "sm"
       ? "h-9 w-9 rounded-lg"
       : size === "lg"
-        ? "aspect-[4/3] w-full rounded-lg"
-        : "h-16 w-16 rounded-xl";
+        ? "aspect-[4/5] w-full rounded-lg"
+        : "h-20 w-20 rounded-xl";
   return (
     <div className={`shrink-0 overflow-hidden border border-[var(--color-line)] bg-[var(--color-surface)] ${classes}`}>
-      {image ? (
+      {hasImage && partnerId ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={image} alt={name} loading="lazy" className="h-full w-full object-cover object-center" />
+        <img
+          src={`/api/partner-images/${encodeURIComponent(partnerId)}`}
+          alt={name}
+          loading="lazy"
+          referrerPolicy="same-origin"
+          className={size === "lg" ? "h-full w-full object-contain object-center p-1" : "h-full w-full object-cover object-center"}
+        />
       ) : (
         <span className="flex h-full w-full items-center justify-center text-[13px] font-semibold text-2">
           {initials(name)}
@@ -63,7 +71,7 @@ export function PartnerInline({ name }: { name: string }) {
       className="inline-flex min-w-0 items-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-2 py-1.5 transition-colors hover:border-[var(--color-line-strong)]"
       title={`Group partner: ${name}`}
     >
-      <PartnerPortrait name={name} image={partner?.image} size="sm" />
+      <PartnerPortrait name={name} partnerId={partner?.id} hasImage={Boolean(partner?.image)} size="sm" />
       <span className="min-w-0">
         <span className="block text-[9px] uppercase tracking-[0.12em] text-3">Group partner</span>
         <span className="block truncate text-[11.5px] font-medium text-[var(--color-ink)]">{name}</span>
