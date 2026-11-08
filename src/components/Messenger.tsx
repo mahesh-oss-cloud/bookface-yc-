@@ -104,7 +104,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
   );
 
   return (
-    <div className="shell py-8 md:py-10">
+    <div className="shell py-8 md:py-10 mobile-messenger">
       <div className="flex items-end justify-between gap-4 mb-6">
         <div>
           <div className="kicker mb-2">Private messages</div>
@@ -265,7 +265,7 @@ function Composer({ onSend }: { onSend: (body: string) => void }) {
   }
 
   return (
-    <div className="border-t border-[var(--color-line)] p-3 bg-white">
+    <div className="mobile-message-composer border-t border-[var(--color-line)] bg-white p-3">
       <div className="flex items-end gap-2">
         <textarea
           ref={ref}
