@@ -519,7 +519,7 @@ export const NETWORK_PROFILES: NetworkProfile[] = [
     role: "Founder",
     company: "BYJU'S · Think & Learn",
     description: "Founded BYJU'S after starting out as a teacher and building technology-led learning products for students.",
-    image: "https://www.weforum.org/people/byju-raveendran/",
+    image: "https://assets.weforum.org/sf_account/image/n8eudHmYJg2vvX98hDJDchfk4cWg3RsBilY1hwbL4Hg.jpeg",
     tags: ["Edtech", "Education"],
   },
 
