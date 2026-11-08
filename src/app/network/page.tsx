@@ -39,7 +39,8 @@ function ProfileCard({ profile }: { profile: (typeof NETWORK_PROFILES)[number] }
             title={`Message ${profile.name}`}
             className="btn btn-sm !h-8 !w-8 !shrink-0 !p-0"
           >
-            <MessageSquare size={15} />
+            <MessageSquare size={15} aria-hidden="true" />
+            <span className="sr-only">Message {profile.name}</span>
           </Link>
         </div>
 
