@@ -240,7 +240,7 @@ export const NETWORK_PROFILES: NetworkProfile[] = [
     role: "Former Co-founder & Managing Director",
     company: "BharatPe",
     description: "Formerly co-founded and led BharatPe; later became known to a wider audience through Shark Tank India.",
-    image: "https://images.yourstory.com/cs/2/e641e900925711e9926177f451727da9/Imagedft9-1589467878851.jpg?ar=2%3A1&crop=faces&format=auto&mode=crop&q=85&w=1920",
+    image: "https://www.indianspeakerbureau.com/img/1764316944_image-25.png",
     tags: ["Fintech", "Shark Tank India", "Investor"],
   },
   {
@@ -352,7 +352,7 @@ export const NETWORK_PROFILES: NetworkProfile[] = [
     role: "Co-founder, President & CEO",
     company: "NVIDIA",
     description: "Co-founded NVIDIA and led its evolution from a graphics-chip company into a central supplier of accelerated computing and AI hardware.",
-    image: "https://www.nvidia.com/content/nvidiaGDC/kr/ko_KR/gtc/home/_jcr_content/root/responsivegrid/nv_container_1970673/nv_tabs/item_1/nv_container_1006614/nv_teaser.coreimg.jpeg/1736911388632/jensen-huang-featured-800x800.jpeg",
+    image: "https://theicons.net/wp-content/uploads/2025/06/djrg-e1749633532508.png",
     tags: ["Semiconductors", "AI"],
   },
   {
@@ -519,7 +519,7 @@ export const NETWORK_PROFILES: NetworkProfile[] = [
     role: "Founder",
     company: "BYJU'S · Think & Learn",
     description: "Founded BYJU'S after starting out as a teacher and building technology-led learning products for students.",
-    image: "https://images.financialexpressdigital.com/2026/02/Untitled-design-1-4.jpg",
+    image: "https://akm-img-a-in.tosshub.com/businesstoday/images/story/202209/byjy_raveendran-22062021_2_1_1-sixteen_nine.jpg?size=948%3A533",
     tags: ["Edtech", "Education"],
   },
 
@@ -992,7 +992,7 @@ export const NETWORK_PROFILES: NetworkProfile[] = [
     role: "Co-founder, Scale AI · Chief AI Officer, Meta",
     company: "Scale AI · Meta",
     description: "Co-founded Scale AI after attending Y Combinator and built it into a major AI data infrastructure company. He later joined Meta as Chief AI Officer.",
-    image: "https://cdn.mos.cms.futurecdn.net/v2/t%3A0%2Cl%3A499%2Ccw%3A3001%2Cch%3A2251%2Cq%3A80%2Cw%3A2560/ynywUkESSVXQwFDTsf6AKX.jpg",
+    image: "https://images.financialexpressdigital.com/2025/11/Alexandr-Wang-co-founder-of-Scale-AI-urges-teens-to-embrace-AI-coding-early-calling-it-a-transformative-opportunity-akin-to-the-early-computer-revolution.png?w=1200",
     tags: ["Artificial intelligence", "YC W16", "Forbes list"],
   },
   {
