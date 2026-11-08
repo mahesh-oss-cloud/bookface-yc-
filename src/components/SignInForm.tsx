@@ -83,7 +83,10 @@ export default function SignInForm({ nextPath }: Props) {
         <a href="/signin" className="inline-flex w-fit items-center gap-2.5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/yc-logo.svg" alt="Y Combinator" className="h-8 w-8 rounded-[6px]" />
-          <span className="wordmark text-[23px]">Bookface</span>
+          <span className="flex flex-col items-start gap-0.5">
+            <span className="wordmark text-[23px] leading-none">Bookface</span>
+            <span className="wordmark text-[10px] leading-none text-2">by Y Combinator</span>
+          </span>
         </a>
       </header>
 
