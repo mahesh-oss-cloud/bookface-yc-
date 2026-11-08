@@ -64,27 +64,17 @@ export default async function SignInPage({ searchParams }: { searchParams: Searc
               <SignInForm nextPath={nextPath} />
             </div>
 
-            <div className="mt-5 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] p-4">
-              <div className="flex items-center gap-2">
-                <span className="chip chip-accent">Email unverified</span>
-                <span className="text-[11px] text-2">Account status</span>
-              </div>
-              <p className="mt-2 text-[11.5px] leading-relaxed text-2">
-                This account has not completed email verification. Signing in does not, by itself,
-                confirm YC founder or alumni status.
+            <div className="mt-5 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] p-4 text-center">
+              <p className="text-[12px] font-medium text-[var(--color-ink)]">
+                Bookface is only for YC founders and alumni.
               </p>
-              <a href="https://www.ycombinator.com/verify" target="_blank" rel="noopener noreferrer" className="link-underline mt-2 inline-flex text-[11.5px] font-medium">
-                YC founder verification
-              </a>
+              <p className="mt-1 text-[11.5px] leading-relaxed text-2">
+                Access is currently limited to approved accounts.
+              </p>
+              <p className="mt-3 text-[11.5px] font-medium text-[var(--color-ink-2)]">
+                Private by default. Built for founders.
+              </p>
             </div>
-
-            <p className="mt-4 text-[10.5px] leading-relaxed text-3">
-              This sign-in is for this Bookface instance only. It is not YC single sign-on, does not use
-              your YC password, and does not grant access to YC’s own services.
-            </p>
-            <p className="mt-4 text-center text-[11px] leading-relaxed text-3">
-              Access is limited to approved accounts. Contact the administrator if your access should be enabled.
-            </p>
           </div>
         </section>
       </div>
