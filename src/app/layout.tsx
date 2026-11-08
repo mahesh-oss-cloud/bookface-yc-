@@ -9,7 +9,14 @@ export const metadata: Metadata = {
     "A private founder community for discovering companies, connecting with founders, and staying close to your network.",
   applicationName: "Bookface",
   manifest: "/manifest.webmanifest",
-  icons: {\n    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],\n    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],\n  },\n  appleWebApp: {
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icon-192.png", sizes: "192x192", type: "image/png" }],
+  },
+  appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "Bookface",
