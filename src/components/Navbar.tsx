@@ -45,7 +45,10 @@ export default function Navbar({ email }: { email: string }) {
         <Link href="/" className="flex items-center gap-2.5 shrink-0" onClick={() => setOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/yc-logo.svg" alt="Y Combinator" className="w-7 h-7 rounded-[6px]" />
-          <span className="wordmark text-[20px] leading-none">Bookface</span>
+          <span className="flex flex-col items-start gap-0.5">
+            <span className="wordmark text-[20px] leading-none">Bookface</span>
+            <span className="wordmark text-[9px] leading-none text-2">by Y Combinator</span>
+          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1 ml-2">
@@ -133,7 +136,7 @@ export default function Navbar({ email }: { email: string }) {
             <div className="mt-2 border-t border-[var(--color-line)] pt-3 flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate text-[12px] font-medium">{email}</div>
-                </div>
+              </div>
               <button type="button" onClick={signOut} disabled={signingOut} className="btn btn-sm shrink-0">
                 <LogOut size={13} /> {signingOut ? "Signing out…" : "Sign out"}
               </button>
