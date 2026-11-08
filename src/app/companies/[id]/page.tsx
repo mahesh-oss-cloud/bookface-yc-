@@ -2,7 +2,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, ExternalLink, MapPin, Users } from "lucide-react";
-import { Avatar, BatchChip, CompanyLogo, MessageLink } from "@/components/ui";
+import { Avatar, BatchChip, CompanyLogo, MessageLink, PartnerPortrait } from "@/components/ui";
+import { getPartnerByName } from "@/data/partners";
 import { batchLabel, formatCount, getCompanies, getCompany, getFoundersByCompany } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +14,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
   if (!company) notFound();
 
   const founders = getFoundersByCompany(company.id);
+  const groupPartner = company.groupPartner ? getPartnerByName(company.groupPartner) : undefined;
   const related = getCompanies()
     .filter((c) => c.batchShort === company.batchShort && c.id !== company.id)
     .slice(0, 8);
@@ -61,6 +63,7 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
               company.location ? <span className="inline-flex items-center gap-1.5"><MapPin size={13} className="text-[var(--color-ink-3)]" />{company.location}</span> : "Not listed publicly"
             } />
             <Field label="Industry" value={company.industry.join(", ") || "Not listed publicly"} />
+            <Field label="Group Partner" value={company.groupPartner || "Not listed in the company record"} />
           </div>
 
           {company.tags.length > 0 && (
@@ -97,6 +100,21 @@ export default async function CompanyDetailPage({ params }: { params: Promise<{ 
         </div>
 
         <aside className="card p-5 lg:sticky lg:top-20">
+          {company.groupPartner && (
+            <div className="mb-5 border-b border-[var(--color-line)] pb-5">
+              <div className="kicker mb-3">Group partner</div>
+              <Link
+                href={groupPartner ? `/partners#${groupPartner.id}` : "/partners"}
+                className="flex items-center gap-3 rounded-lg border border-[var(--color-line)] p-3 transition-colors hover:border-[var(--color-line-strong)]"
+              >
+                <PartnerPortrait name={company.groupPartner} image={groupPartner?.image} />
+                <div className="min-w-0">
+                  <div className="truncate text-[13px] font-medium">{company.groupPartner}</div>
+                  <div className="mt-0.5 text-[11.5px] text-2">{groupPartner?.role || "Y Combinator partner"}</div>
+                </div>
+              </Link>
+            </div>
+          )}
           <div className="flex items-center justify-between mb-4">
             <div className="kicker">Founders</div>
             <span className="chip">{founders.length}</span>
