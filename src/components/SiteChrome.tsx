@@ -32,6 +32,8 @@ export default function SiteChrome({ children, email }: Props) {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-2">
             <Link href="/companies" className="hover:text-[var(--color-ink)]">Companies</Link>
             <Link href="/founders" className="hover:text-[var(--color-ink)]">Founders</Link>
+            <Link href="/network" className="hover:text-[var(--color-ink)]">Network</Link>
+            <Link href="/partners" className="hover:text-[var(--color-ink)]">Partners</Link>
             <Link href="/forum" className="hover:text-[var(--color-ink)]">Forum</Link>
             <Link href="/resources" className="hover:text-[var(--color-ink)]">Resources</Link>
             <Link href="/messages" className="hover:text-[var(--color-ink)]">Messages</Link>
