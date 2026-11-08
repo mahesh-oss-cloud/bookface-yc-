@@ -67,7 +67,6 @@ const ALLOWED_IMAGE_HOSTS = new Set([
   "spectrum.ieee.org",
   "startup77.com",
   "static.fireant.vn",
-  "staticimg.publishstory.co",
   "storage0.dms.mpinteractiv.ro",
   "thekeynotecurators.com",
   "thumbor.forbes.com",
