@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Bookface",
     short_name: "Bookface",
     description: "The founder network for Y Combinator companies.",
-    start_url: "/",
+    start_url: "/profile",
     scope: "/",
     display: "standalone",
     display_override: ["standalone", "minimal-ui"],
