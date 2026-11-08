@@ -13,3 +13,6 @@ yarn-error.log*
 
 .vercel
 .env*
+
+# Keep the example template tracked while ignoring real secrets.
+!.env.example
