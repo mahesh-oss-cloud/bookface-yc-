@@ -17,9 +17,10 @@ export default function NetworkPortrait({
       {!failed ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={`/api/network-images/${encodeURIComponent(id)}`}
+          src={`/api/network-images/${encodeURIComponent(id)}?v=3`}
           alt={name}
           loading="lazy"
+          decoding="async"
           referrerPolicy="same-origin"
           onError={() => setFailed(true)}
           className="h-full w-full object-cover object-center"
