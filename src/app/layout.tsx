@@ -4,7 +4,7 @@ import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
-  title: "Bookface — The YC founder community",
+  title: "Bookface by Y Combinator",
   description:
     "A private founder community with a searchable directory of YC companies and founders, peer discussions, messaging, and resources.",
 };
