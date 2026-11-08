@@ -12,16 +12,20 @@ export type Contact = {
   company: string;
   role: string;
   image: string | null;
-  kind?: "founder" | "partner";
+  kind?: "founder" | "partner" | "network";
 };
 
 type Msg = { id: string; body: string; at: number };
 type Thread = { contact: Contact; messages: Msg[] };
 
 function contactProfileHref(contact: Contact): string {
-  return contact.kind === "partner"
-    ? `/partners#${contact.id.replace(/^partner:/, "")}`
-    : `/founders/${contact.id}`;
+  if (contact.kind === "partner") {
+    return `/partners#${contact.id.replace(/^partner:/, "")}`;
+  }
+  if (contact.kind === "network") {
+    return `/network#${contact.id.replace(/^network:/, "")}`;
+  }
+  return `/founders/${contact.id}`;
 }
 
 const KEY = "bookface.threads.v1";
@@ -189,7 +193,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
                     </div>
                   </div>
                   <Link href={contactProfileHref(active.contact)} className="btn btn-sm">
-                    {active.contact.kind === "partner" ? "Partner" : "Profile"}
+                    {active.contact.kind === "partner" ? "Partner" : active.contact.kind === "network" ? "Network" : "Profile"}
                   </Link>
                 </div>
 
