@@ -311,9 +311,7 @@ body {
     font-size: 9px;
   }
 
-  .mobile-header-shell .wordmark.text-\\[20px\\] {
-    font-size: 18px;
-  }
+  .mobile-header-shell > a > span > span:first-child {\n    font-size: 18px;\n  }
 }
 
 @media (display-mode: standalone) {
