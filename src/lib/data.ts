@@ -17,6 +17,8 @@ export type Company = {
   status: string;
   top: boolean;
   description?: string;
+  primaryPartner?: string;
+  groupPartner?: string;
 };
 
 export type Founder = {
@@ -103,6 +105,8 @@ const BLACKBIRD_COMPANY: Company = {
   teamSize: 4,
   status: "Active",
   top: true,
+  groupPartner: "Jared Friedman",
+  primaryPartner: "Jared Friedman",
   description:
     "Blackbird Finance is the financial OS for Indian freelancers who bill clients abroad. It reads bills, statements and payment advices, matches every payment to its invoice, and prepares GST returns and export filings overnight — so the month closes before you wake up. Built in Hyderabad, for the people building their own businesses.",
 };
@@ -118,7 +122,22 @@ function readJson<T>(file: string): T {
 export function getCompanies(): Company[] {
   if (!companyCache) {
     const raw = readJson<Company[]>("companies.json");
-    companyCache = [BLACKBIRD_COMPANY, ...raw];
+    companyCache = [
+      BLACKBIRD_COMPANY,
+      ...raw.map((company) => {
+        const source = company as Company & {
+          primaryPartner?: string;
+          groupPartner?: string;
+          partner?: string;
+        };
+        const groupPartner =
+          source.groupPartner?.trim() ||
+          source.primaryPartner?.trim() ||
+          source.partner?.trim() ||
+          undefined;
+        return { ...company, groupPartner };
+      }),
+    ];
   }
   return companyCache;
 }
@@ -254,5 +273,3 @@ export function searchFounders({ q = "", batch = "", industry = "", role = "", p
   const items = all.slice((safePage - 1) * perPage, safePage * perPage);
   return { items, total, page: safePage, pages };
 }
-
-
