@@ -33,6 +33,7 @@ export type Founder = {
   industry: string[];
   top: boolean;
   bio?: string;
+  groupPartner?: string;
 };
 
 const BLACKBIRD_FOUNDERS: Founder[] = [
@@ -145,7 +146,13 @@ export function getCompanies(): Company[] {
 export function getFounders(): Founder[] {
   if (!founderCache) {
     const raw = readJson<Founder[]>("founders.json");
-    founderCache = [...BLACKBIRD_FOUNDERS, ...raw];
+    const partnerByCompany = new Map(
+      getCompanies().map((company) => [company.id, company.groupPartner] as const)
+    );
+    founderCache = [...BLACKBIRD_FOUNDERS, ...raw].map((founder) => ({
+      ...founder,
+      groupPartner: founder.companySlug ? partnerByCompany.get(founder.companySlug) : undefined,
+    }));
   }
   return founderCache;
 }
