@@ -10,7 +10,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Searc
   const nextPath =
     rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") && !rawNext.startsWith("/signin")
       ? rawNext
-      : "/";
+      : "/profile";
 
   return <SignInForm nextPath={nextPath} />;
 }
