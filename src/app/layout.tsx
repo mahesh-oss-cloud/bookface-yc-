@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "sonner";
 import "./globals.css";
+import "./mobile-app.css";
 import SiteChrome from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
