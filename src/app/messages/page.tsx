@@ -23,7 +23,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: SP 
         company: partner.formerCompany,
         role: partner.role,
         image: partner.image ? `/api/partner-images/${partner.id}` : null,
-        kind: "partner",
+        kind: "partner" as const,
       }
     : founder
       ? {
@@ -32,7 +32,7 @@ export default async function MessagesPage({ searchParams }: { searchParams: SP 
           company: founder.company,
           role: founder.role,
           image: founder.image,
-          kind: "founder",
+          kind: "founder" as const,
         }
       : null;
 
