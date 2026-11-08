@@ -24,9 +24,9 @@ export default function SiteChrome({ children, email }: Props) {
           <div className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/yc-logo.svg" alt="Y Combinator" className="w-6 h-6 rounded-[5px]" />
-            <div>
-              <div className="wordmark text-[16px] leading-tight">Bookface</div>
-              <div className="text-[11.5px] text-3">Private founder community</div>
+            <div className="flex flex-col items-start gap-0.5">
+              <div className="wordmark text-[16px] leading-none">Bookface</div>
+              <div className="wordmark text-[10px] leading-none text-3">by Y Combinator</div>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-2">
