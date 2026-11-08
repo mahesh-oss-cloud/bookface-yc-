@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Building2, ExternalLink, MapPin, MessageSquare } from "lucide-react";
-import { Avatar, BatchChip, CompanyLogo } from "@/components/ui";
+import { Avatar, BatchChip, CompanyLogo, PartnerInline } from "@/components/ui";
 import { batchLabel, getCompany, getFounder, getFounders, getFoundersByCompany, initials } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -95,6 +95,7 @@ export default async function FounderDetailPage({ params }: { params: Promise<{ 
                     {company.batchShort && <BatchChip batch={company.batchShort} />}
                   </div>
                   <div className="text-[12.5px] text-2">{company.oneLiner || company.industry.join(", ") || "YC company"}</div>
+                  {company.groupPartner && <div className="mt-2"><PartnerInline name={company.groupPartner} /></div>}
                 </div>
                 <ArrowUpRight size={15} className="text-[var(--color-ink-3)]" />
               </Link>
