@@ -325,7 +325,9 @@ body {
     font-size: 9px;
   }
 
-  .mobile-header-shell > a > span > span:first-child {\n    font-size: 18px;\n  }
+  .mobile-header-shell > a > span > span:first-child {
+    font-size: 18px;
+  }
 }
 
 @media (display-mode: standalone) {
