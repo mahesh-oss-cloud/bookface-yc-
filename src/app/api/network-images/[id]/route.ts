@@ -3,37 +3,53 @@ import { NETWORK_PROFILES } from "@/data/network";
 
 export const runtime = "nodejs";
 
+// Only known portrait hosts are eligible as image sources or redirect targets.
 const ALLOWED_IMAGE_HOSTS = new Set([
-  "www.ril.com",
-  "www.adani.com",
-  "joinditto.in",
-  "inc42.com",
-  "www.thecasecentre.org",
-  "bharatdialogues.com",
-  "assets.weforum.org",
-  "images.yourstory.com",
-  "www.boat-lifestyle.com",
   "akm-img-a-in.tosshub.com",
-  "blackhattalent.com",
-  "img-2.outlookindia.com",
-  "media.fortuneindia.com",
-  "images.moneycontrol.com",
-  "images.forbesindia.com",
-  "media.assettype.com",
-  "m.economictimes.com",
-  "images.storyboard18.com",
-  "cdn.forbes.sk",
-  "i.guim.co.uk",
-  "cdn.mos.cms.futurecdn.net",
-  "thumbor.forbes.com",
-  "panshiyiphoto.com",
-  "s201.q4cdn.com",
-  "www.gatesfoundation.org",
   "assets.entrepreneur.com",
-  "thekeynotecurators.com",
-  "s.yimg.com",
-  "www.karmanproject.org",
+  "assets.gqindia.com",
+  "assets.weforum.org",
+  "bharatdialogues.com",
+  "blackhattalent.com",
   "cdn.i-scmp.com",
+  "cdn.mos.cms.futurecdn.net",
+  "hips.hearstapps.com",
+  "i.blogs.es",
+  "image.cnbcfm.com",
+  "images.forbesindia.com",
+  "images.moneycontrol.com",
+  "images.storyboard18.com",
+  "images.yourstory.com",
+  "img-2.outlookindia.com",
+  "img.etimg.com",
+  "img3.aksam.com.tr",
+  "imgs.cwgv.com.tw",
+  "inc42.com",
+  "joinditto.in",
+  "keyshone.com",
+  "m.economictimes.com",
+  "media.assettype.com",
+  "media.fortuneindia.com",
+  "pic1.calcalist.co.il",
+  "s.yimg.com",
+  "s201.q4cdn.com",
+  "sb-vf-assets.s3.amazonaws.com",
+  "thekeynotecurators.com",
+  "thumbor.forbes.com",
+  "www.adani.com",
+  "www.boat-lifestyle.com",
+  "www.crn.com",
+  "www.gatesfoundation.org",
+  "www.hcltech.com",
+  "www.hindustantimes.com",
+  "www.indiaspend.com",
+  "www.infoedge.in",
+  "www.karmanproject.org",
+  "www.mckinsey.com",
+  "www.panshiyiphoto.com",
+  "www.ril.com",
+  "www.sunpharma.com",
+  "www.thecasecentre.org"
 ]);
 
 const ALLOWED_CONTENT_TYPES = new Set([
@@ -44,6 +60,41 @@ const ALLOWED_CONTENT_TYPES = new Set([
 ]);
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+const MAX_REDIRECTS = 3;
+
+function isAllowedImageUrl(url: URL): boolean {
+  return url.protocol === "https:" && ALLOWED_IMAGE_HOSTS.has(url.hostname.toLowerCase());
+}
+
+async function fetchPortrait(startUrl: URL): Promise<Response | null> {
+  let currentUrl = startUrl;
+
+  for (let redirects = 0; redirects <= MAX_REDIRECTS; redirects += 1) {
+    if (!isAllowedImageUrl(currentUrl)) return null;
+
+    const response = await fetch(currentUrl, {
+      cache: "force-cache",
+      redirect: "manual",
+      headers: { Accept: "image/avif,image/webp,image/png,image/jpeg" },
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if (![301, 302, 303, 307, 308].includes(response.status)) {
+      return response;
+    }
+
+    const location = response.headers.get("location");
+    if (!location || redirects === MAX_REDIRECTS) return null;
+
+    try {
+      currentUrl = new URL(location, currentUrl);
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
+}
 
 export async function GET(
   _request: Request,
@@ -63,22 +114,14 @@ export async function GET(
     return NextResponse.json({ error: "Invalid portrait source." }, { status: 400 });
   }
 
-  if (
-    imageUrl.protocol !== "https:" ||
-    !ALLOWED_IMAGE_HOSTS.has(imageUrl.hostname.toLowerCase())
-  ) {
+  if (!isAllowedImageUrl(imageUrl)) {
     return NextResponse.json({ error: "Portrait source is not allowed." }, { status: 400 });
   }
 
   try {
-    const upstream = await fetch(imageUrl, {
-      cache: "force-cache",
-      redirect: "error",
-      headers: { Accept: "image/avif,image/webp,image/png,image/jpeg" },
-      signal: AbortSignal.timeout(8000),
-    });
+    const upstream = await fetchPortrait(imageUrl);
 
-    if (!upstream.ok) {
+    if (!upstream?.ok) {
       return NextResponse.json({ error: "Portrait is temporarily unavailable." }, { status: 502 });
     }
 
