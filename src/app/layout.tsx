@@ -6,13 +6,22 @@ import SiteChrome from "@/components/SiteChrome";
 export const metadata: Metadata = {
   title: "Bookface by Y Combinator",
   description:
-    "A private founder community with a searchable directory of YC companies and founders, peer discussions, messaging, and resources.",
+    "A private founder community for discovering companies, connecting with founders, and staying close to your network.",
+  applicationName: "Bookface",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Bookface",
+  },
 };
 
 export const viewport: Viewport = {
   themeColor: "#ffffff",
   width: "device-width",
-  initialScale: 1,\n  viewportFit: "cover",\n  colorScheme: "light",
+  initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
