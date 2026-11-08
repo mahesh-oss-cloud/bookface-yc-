@@ -1,0 +1,181 @@
+/* Bookface phone and tablet application layer. Loaded after globals.css. */
+
+html,
+body {
+  min-width: 320px;
+  overflow-x: clip;
+}
+
+.site-header {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.mobile-app-main {
+  min-width: 0;
+}
+
+.mobile-tabbar {
+  display: none;
+}
+
+.mobile-tabbar-inner {
+  display: grid;
+  width: 100%;
+  max-width: 560px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .mobile-tabbar {
+    position: fixed;
+    z-index: 60;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--color-line);
+    background: rgb(255 255 255 / 96%);
+    box-shadow: 0 -5px 24px rgb(17 17 16 / 5%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .mobile-app-main {
+    padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 639px) {
+  .shell {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .mobile-header-shell {
+    min-height: 54px;
+    gap: 8px;
+  }
+
+  .mobile-header-shell > a > span > span:first-child {
+    font-size: 18px;
+  }
+
+  .mobile-app-main > .shell.py-10,
+  .mobile-app-main > .shell.py-8 {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .mobile-app-main h1 {
+    font-size: clamp(31px, 8vw, 42px) !important;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  .mobile-app-main h2 {
+    font-size: clamp(21px, 6vw, 30px) !important;
+    line-height: 1.12;
+  }
+
+  .mobile-app-main .card {
+    min-width: 0;
+    border-radius: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .mobile-app-main input,
+  .mobile-app-main textarea,
+  .mobile-app-main select {
+    min-height: 44px;
+    font-size: 16px !important;
+  }
+
+  .mobile-app-main textarea {
+    min-height: 88px;
+  }
+
+  .mobile-app-main button,
+  .mobile-app-main .btn,
+  .mobile-app-main a.btn {
+    touch-action: manipulation;
+  }
+
+  .mobile-app-main .grid,
+  .mobile-app-main .flex {
+    min-width: 0;
+  }
+
+  .mobile-app-main .overflow-x-auto {
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .mobile-app-main .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-footer {
+    margin-top: 32px;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-messenger .grid {
+    min-height: min(72dvh, 680px) !important;
+  }
+
+  .mobile-messenger .max-h-\\[560px\\] {
+    max-height: 68dvh;
+  }
+
+  .mobile-message-composer {
+    padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 380px) {
+  .shell {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .mobile-tabbar {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+
+  .mobile-tabbar-link {
+    font-size: 9px;
+  }
+
+  .mobile-app-main .grid.grid-cols-2 {
+    column-gap: 8px;
+  }
+}
+
+@media (max-height: 480px) and (orientation: landscape) and (max-width: 1023px) {
+  .mobile-tabbar {
+    padding-top: 3px;
+    padding-bottom: calc(3px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-tabbar-link {
+    min-height: 42px;
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .mobile-app-main {
+    padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-app-main *,
+  .mobile-tabbar * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
