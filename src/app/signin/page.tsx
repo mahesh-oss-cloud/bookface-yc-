@@ -47,9 +47,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Searc
             </div>
           </div>
 
-          <p className="text-[11px] text-3">
-            Private access · No public registration
-          </p>
+          <p className="text-[11px] text-3">Private access · No public registration</p>
         </section>
 
         <section className="flex items-center justify-center border-t border-[var(--color-line)] bg-white px-6 py-12 sm:px-10 lg:border-l lg:border-t-0">
@@ -75,19 +73,17 @@ export default async function SignInPage({ searchParams }: { searchParams: Searc
                 This account has not completed email verification. Signing in does not, by itself,
                 confirm YC founder or alumni status.
               </p>
-              <a
-                href="https://www.ycombinator.com/verify"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline mt-2 inline-flex text-[11.5px] font-medium"
-              >
+              <a href="https://www.ycombinator.com/verify" target="_blank" rel="noopener noreferrer" className="link-underline mt-2 inline-flex text-[11.5px] font-medium">
                 YC founder verification
               </a>
             </div>
 
-            <p className="mt-6 text-center text-[11px] leading-relaxed text-3">
-              Access is limited to approved accounts. Contact the administrator if your access
-              should be enabled.
+            <p className="mt-4 text-[10.5px] leading-relaxed text-3">
+              This sign-in is for this Bookface instance only. It is not YC single sign-on, does not use
+              your YC password, and does not grant access to YC’s own services.
+            </p>
+            <p className="mt-4 text-center text-[11px] leading-relaxed text-3">
+              Access is limited to approved accounts. Contact the administrator if your access should be enabled.
             </p>
           </div>
         </section>
