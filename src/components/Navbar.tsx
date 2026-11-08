@@ -8,6 +8,7 @@ import { LogOut, MessageSquare, Search, X, Menu } from "lucide-react";
 const NAV = [
   { href: "/companies", label: "Companies" },
   { href: "/founders", label: "Founders" },
+  { href: "/partners", label: "Partners" },
   { href: "/forum", label: "Forum" },
   { href: "/resources", label: "Resources" },
 ];
