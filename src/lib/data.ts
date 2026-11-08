@@ -48,7 +48,7 @@ const BLACKBIRD_FOUNDERS: Founder[] = [
     location: "Hyderabad, India",
     industry: ["Fintech", "B2B", "SaaS"],
     top: true,
-    bio: "Leads Blackbird's finances and helps shape how the product handles the paperwork behind getting paid.",
+    bio: "Mahesh is a student founder building at the intersection of finance and AI. As Blackbird Finance's founder and CFO, he leads the company's finances and works on product and regulatory workflows—especially the documentation behind cross-border service payments, GST and export compliance. He writes about GST on exports, the Export Declaration Form (EDF), FIRCs and income tax for Indian freelancers.",
   },
   {
     id: "saharsh-keerthi",
@@ -61,7 +61,7 @@ const BLACKBIRD_FOUNDERS: Founder[] = [
     location: "Hyderabad, India",
     industry: ["Fintech", "B2B", "SaaS"],
     top: true,
-    bio: "Leads the company and keeps the team focused on the freelancers and businesses using Blackbird.",
+    bio: "Saharsh leads Blackbird Finance as CEO, focusing the company on freelancers, developers and agencies in India that bill clients abroad. He shapes the company's customer direction and product priorities.",
   },
   {
     id: "arhaan-rahil-mohammed",
@@ -74,7 +74,7 @@ const BLACKBIRD_FOUNDERS: Founder[] = [
     location: "Hyderabad, India",
     industry: ["Fintech", "B2B", "SaaS"],
     top: true,
-    bio: "Leads engineering, from the customer experience to security and the files Blackbird prepares.",
+    bio: "Arhaan leads Blackbird Finance's technology and security, including the app, customer-data protections and the files the product prepares, such as GSTR-1 and the Export Declaration Form (EDF).",
   },
   {
     id: "satwik-reddy",
@@ -87,14 +87,14 @@ const BLACKBIRD_FOUNDERS: Founder[] = [
     location: "Hyderabad, India",
     industry: ["Fintech", "B2B", "SaaS"],
     top: true,
-    bio: "Leads operations and the day-to-day work behind Blackbird's compliance workflows.",
+    bio: "Satwik runs Blackbird Finance's operations, including the compliance calendar and the GST, EDF and income-tax deadlines that customers need to keep track of.",
   },
 ];
 
 const BLACKBIRD_COMPANY: Company = {
   id: "blackbird",
   name: "Blackbird Finance",
-  oneLiner: "AI GST and export compliance for Indian freelancers paid from abroad.",
+  oneLiner: "A financial OS for Indian freelancers, developers and agencies billing clients abroad.",
   batch: "Winter 2027",
   batchShort: "W27",
   location: "Hyderabad, Telangana, India",
@@ -109,7 +109,7 @@ const BLACKBIRD_COMPANY: Company = {
   groupPartner: "Jared Friedman",
   primaryPartner: "Jared Friedman",
   description:
-    "Blackbird Finance is the financial OS for Indian freelancers who bill clients abroad. It reads bills, statements and payment advices, matches every payment to its invoice, and prepares GST returns and export filings overnight — so the month closes before you wake up. Built in Hyderabad, for the people building their own businesses.",
+    "Blackbird Finance is a financial OS for freelancers, developers and agencies in India who bill clients abroad. It brings export invoicing, payment matching, GST preparation, monthly Export Declaration Form (EDF) preparation and income-tax estimates into one workflow. Blackbird prepares the records customers and their CAs need; customers remain in control of filing and their existing payment providers.",
 };
 
 let companyCache: Company[] | null = null;
