@@ -27,8 +27,8 @@ export default function SiteChrome({ children, email }: Props) {
   return (
     <>
       <Navbar email={email} />
-      <main className="mobile-page flex-1">{children}</main>
-      <footer className="mobile-footer mt-20 border-t border-[var(--color-line)]">
+      <main className="mobile-app-main flex-1">{children}</main>
+      <footer className="app-footer mt-20 border-t border-[var(--color-line)]">
         <div className="shell flex flex-col items-start justify-between gap-6 py-10 md:flex-row md:items-center">
           <div className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
