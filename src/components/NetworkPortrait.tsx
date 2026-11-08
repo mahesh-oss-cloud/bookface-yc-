@@ -22,7 +22,7 @@ export default function NetworkPortrait({
           loading="lazy"
           referrerPolicy="same-origin"
           onError={() => setFailed(true)}
-          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.025]"
+          className="h-full w-full object-contain object-center p-1"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-[var(--color-surface)]">
