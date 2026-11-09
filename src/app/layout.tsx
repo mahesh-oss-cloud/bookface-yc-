@@ -3,6 +3,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import "./mobile-app.css";
 import SiteChrome from "@/components/SiteChrome";
+import { getBookfaceSession } from "@/lib/session";
 
 export const metadata: Metadata = {
   title: "Bookface by Y Combinator",
@@ -32,11 +33,13 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const session = await getBookfaceSession();
+
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <SiteChrome email={process.env.BOOKFACE_LOGIN_EMAIL ?? ""}>
+        <SiteChrome email={session?.email ?? ""}>
           {children}
         </SiteChrome>
         <Toaster
