@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { Avatar, BatchChip, CompanyLogo } from "@/components/ui";
 import { getCompany, getFounder, getFoundersByCompany } from "@/lib/data";
 import { getBookfaceSession } from "@/lib/session";
+import { getBookfaceAccount } from "@/lib/accounts";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -12,15 +13,27 @@ export default async function MyProfilePage() {
   const session = await getBookfaceSession();
   if (!session) redirect("/signin?next=%2Fprofile");
 
-  const configuredEmail = process.env.BOOKFACE_LOGIN_EMAIL?.trim().toLowerCase();
-  if (!configuredEmail || session.email !== configuredEmail) {
-    redirect("/signin?next=%2Fprofile");
+  const account = getBookfaceAccount(session.email);
+  if (!account) redirect("/signin?next=%2Fprofile");
+
+  // Each approved email can be linked to its own founder profile in
+  // BOOKFACE_ACCOUNTS_JSON. Never fall back to another member's profile.
+  if (!account.founderId) {
+    return (
+      <div className="shell py-16">
+        <div className="card mx-auto max-w-[620px] p-6 md:p-8">
+          <div className="kicker mb-2">Your Bookface account</div>
+          <h1 className="text-[30px] md:text-[36px]">Welcome, {account.name || "founder"}.</h1>
+          <p className="mt-4 text-[14px] leading-relaxed text-2">
+            You are signed in as <strong>{session.email}</strong>. Your account is active, but it has not
+            yet been linked to a founder profile. Contact the Bookface administrator to finish setup.
+          </p>
+        </div>
+      </div>
+    );
   }
 
-  // The current approved account belongs to Mahesh. When more member accounts are added,
-  // set BOOKFACE_MEMBER_FOUNDER_ID for each account's deployment/configuration.
-  const founderId = process.env.BOOKFACE_MEMBER_FOUNDER_ID?.trim() || "mahesh-bal";
-  const founder = getFounder(founderId);
+  const founder = getFounder(account.founderId);
   if (!founder) notFound();
 
   const company = founder.companySlug ? getCompany(founder.companySlug) : undefined;
@@ -62,14 +75,16 @@ export default async function MyProfilePage() {
               <Link href={`/founders/${founder.id}`} className="btn">
                 Open directory profile <ArrowUpRight size={14} />
               </Link>
-              <a
-                href="https://in.linkedin.com/in/mahesh-bal"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-              >
-                LinkedIn <ExternalLink size={13} />
-              </a>
+              {account.linkedinUrl && (
+                <a
+                  href={account.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                >
+                  LinkedIn <ExternalLink size={13} />
+                </a>
+              )}
             </div>
           </div>
         </div>
