@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole, Mail, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, Eye, EyeOff, LockKeyhole, Mail, X } from "lucide-react";
 
 type Props = {
   nextPath: string;
@@ -17,6 +17,27 @@ export default function SignInForm({ nextPath }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+  const [showInstallHelp, setShowInstallHelp] = useState(false);
+
+  useEffect(() => {
+    const handleInstallAvailable = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+    };
+    window.addEventListener("beforeinstallprompt", handleInstallAvailable);
+    return () => window.removeEventListener("beforeinstallprompt", handleInstallAvailable);
+  }, []);
+
+  async function installApp() {
+    if (installPrompt) {
+      await installPrompt.prompt();
+      await installPrompt.userChoice;
+      setInstallPrompt(null);
+      return;
+    }
+    setShowInstallHelp((value) => !value);
+  }
 
   useEffect(() => {
     if (!showLogin) return;
