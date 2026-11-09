@@ -1,4 +1,6 @@
 import Messenger, { type Contact } from "@/components/Messenger";
+import { getBookfaceSession } from "@/lib/session";
+import { redirect } from "next/navigation";
 import { getFounder } from "@/lib/data";
 import { getPartnerById } from "@/data/partners";
 import { getNetworkProfileById } from "@/data/network";
@@ -8,6 +10,9 @@ export const dynamic = "force-dynamic";
 type SP = Promise<Record<string, string | string[] | undefined>>;
 
 export default async function MessagesPage({ searchParams }: { searchParams: SP }) {
+  const session = await getBookfaceSession();
+  if (!session) redirect("/signin?next=%2Fmessages");
+
   const sp = await searchParams;
   const toRaw = Array.isArray(sp.to) ? sp.to[0] : sp.to;
   const to = toRaw ? decodeURIComponent(toRaw) : "";
@@ -50,5 +55,5 @@ export default async function MessagesPage({ searchParams }: { searchParams: SP 
           }
         : null;
 
-  return <Messenger initialContact={initialContact} />;
+  return <Messenger initialContact={initialContact} accountEmail={session.email} />;
 }
