@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, Check, Loader2, MessageSquare, Plus, Search, Send, X } from "lucide-react";
-import { toast } from "sonner";
+import { ArrowLeft, Loader2, MessageSquare, Plus, Search, Send, X } from "lucide-react";
 import { Avatar } from "@/components/ui";
 
 export type Contact = {
@@ -100,7 +99,6 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
         saveThreads(accountEmail, next);
         return next;
       });
-      toast.info("Draft saved on this device. Messaging is not live yet.");
     },
     [active, accountEmail]
   );
@@ -136,7 +134,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                 </div>
                 <div className="text-[13px] font-medium mt-3">No conversations yet</div>
                 <div className="text-[12px] text-2 mt-1 leading-relaxed">
-                  Open a founder or partner profile to start a conversation.
+                  Your founder network is one message away. Start a conversation with someone from the community.
                 </div>
                 <Link href="/founders" className="btn btn-sm mt-4">
                   Browse founders
@@ -205,7 +203,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                       <Avatar name={active.contact.name} image={active.contact.image} size="lg" />
                       <div className="text-[14px] font-medium mt-3">{active.contact.name}</div>
                       <div className="text-[12.5px] text-2 mt-1 max-w-[260px]">
-                        Start the conversation by sending a message.
+                        Say hello and get the conversation going.
                       </div>
                     </div>
                   ) : (
@@ -217,7 +215,6 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                           </div>
                           <div className="flex items-center justify-end gap-1 mt-1 text-[10px] text-3 mono">
                             {new Date(m.at).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}
-                            <Check size={11} />
                           </div>
                         </div>
                       </div>
@@ -234,7 +231,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                 </div>
                 <div className="text-[14px] font-medium mt-4">Your messages</div>
                 <div className="text-[12.5px] text-2 mt-1 max-w-[280px]">
-                  Select a conversation, or open a founder or partner profile to get started.
+                  Choose someone from your network or start a new conversation.
                 </div>
                 <button onClick={() => setComposeOpen(true)} className="btn btn-accent btn-sm mt-4">
                   <Plus size={14} /> New message
