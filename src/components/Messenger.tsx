@@ -28,11 +28,13 @@ function contactProfileHref(contact: Contact): string {
   return `/founders/${contact.id}`;
 }
 
-const KEY = "bookface.threads.v1";
+function storageKey(accountEmail: string) {
+  return `bookface.threads.v2:${accountEmail.trim().toLowerCase()}`;
+}
 
-function loadThreads(): Thread[] {
+function loadThreads(accountEmail: string): Thread[] {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(storageKey(accountEmail));
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
@@ -41,15 +43,15 @@ function loadThreads(): Thread[] {
   }
 }
 
-function saveThreads(threads: Thread[]) {
+function saveThreads(accountEmail: string, threads: Thread[]) {
   try {
-    localStorage.setItem(KEY, JSON.stringify(threads));
+    localStorage.setItem(storageKey(accountEmail), JSON.stringify(threads));
   } catch {
     /* ignore quota errors */
   }
 }
 
-export default function Messenger({ initialContact }: { initialContact: Contact | null }) {
+export default function Messenger({ initialContact, accountEmail }: { initialContact: Contact | null; accountEmail: string }) {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [activeId, setActiveId] = useState<string | null>(initialContact?.id ?? null);
   const [hydrated, setHydrated] = useState(false);
@@ -57,10 +59,10 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
   const [mobileThread, setMobileThread] = useState(Boolean(initialContact));
 
   useEffect(() => {
-    const stored = loadThreads();
+    const stored = loadThreads(accountEmail);
     setThreads(stored);
     setHydrated(true);
-  }, []);
+  }, [accountEmail]);
 
   // Seed a thread for the contact passed via ?to=
   useEffect(() => {
@@ -68,10 +70,10 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
     setThreads((prev) => {
       if (prev.some((t) => t.contact.id === initialContact.id)) return prev;
       const next = [{ contact: initialContact, messages: [] }, ...prev];
-      saveThreads(next);
+      saveThreads(accountEmail, next);
       return next;
     });
-  }, [hydrated, initialContact]);
+  }, [hydrated, initialContact, accountEmail]);
 
   const active = useMemo(() => threads.find((t) => t.contact.id === activeId) ?? null, [threads, activeId]);
 
@@ -85,7 +87,7 @@ export default function Messenger({ initialContact }: { initialContact: Contact 
     setActiveId(contact.id);
     setMobileThread(true);
     setComposeOpen(false);
-  }, []);
+  }, [accountEmail]);
 
   const send = useCallback(
     (body: string) => {
