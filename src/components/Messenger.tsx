@@ -100,7 +100,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
         saveThreads(accountEmail, next);
         return next;
       });
-      toast.info("Saved in this browser. This message has not been delivered.");
+      toast.info("Draft saved on this device. Messaging is not live yet.");
     },
     [active, accountEmail]
   );
@@ -136,7 +136,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                 </div>
                 <div className="text-[13px] font-medium mt-3">No conversations yet</div>
                 <div className="text-[12px] text-2 mt-1 leading-relaxed">
-                  Open a founder or partner profile and start a conversation. Messages are currently stored in this browser only.
+                  Open a founder or partner profile to start a conversation.
                 </div>
                 <Link href="/founders" className="btn btn-sm mt-4">
                   Browse founders
@@ -205,7 +205,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                       <Avatar name={active.contact.name} image={active.contact.image} size="lg" />
                       <div className="text-[14px] font-medium mt-3">{active.contact.name}</div>
                       <div className="text-[12.5px] text-2 mt-1 max-w-[260px]">
-                        Messages are saved in this browser only. Delivery to the recipient is not connected yet.
+                        Start the conversation by sending a message.
                       </div>
                     </div>
                   ) : (
@@ -234,7 +234,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
                 </div>
                 <div className="text-[14px] font-medium mt-4">Your messages</div>
                 <div className="text-[12.5px] text-2 mt-1 max-w-[280px]">
-                  Select a conversation, or open a founder or partner profile to start one. Messages are currently stored in this browser only.
+                  Select a conversation, or open a founder or partner profile to get started.
                 </div>
                 <button onClick={() => setComposeOpen(true)} className="btn btn-accent btn-sm mt-4">
                   <Plus size={14} /> New message
