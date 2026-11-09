@@ -81,7 +81,7 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
     setThreads((prev) => {
       if (prev.some((t) => t.contact.id === contact.id)) return prev;
       const next = [{ contact, messages: [] }, ...prev];
-      saveThreads(next);
+      saveThreads(accountEmail, next);
       return next;
     });
     setActiveId(contact.id);
@@ -97,12 +97,12 @@ export default function Messenger({ initialContact, accountEmail }: { initialCon
         const next = prev.map((t) =>
           t.contact.id === active.contact.id ? { ...t, messages: [...t.messages, msg] } : t
         );
-        saveThreads(next);
+        saveThreads(accountEmail, next);
         return next;
       });
       toast.info("Saved in this browser. This message has not been delivered.");
     },
-    [active]
+    [active, accountEmail]
   );
 
   return (
