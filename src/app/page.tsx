@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getBookfaceSession } from "@/lib/session";
 import { ArrowRight, BookOpen, Briefcase, Building2, Handshake, Search, Sparkles, TrendingUp, Users } from "lucide-react";
 import { CompanyGridCard, FounderGridCard } from "@/components/ui";
 import { formatCount, getCompanies, getFounders, getStats } from "@/lib/data";
@@ -29,7 +31,11 @@ const SAMPLE_THREADS = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Defense in depth: the public root URL must never expose the member directory.
+  const session = await getBookfaceSession();
+  if (!session) redirect("/signin?next=%2F");
+
   const stats = getStats();
   const companies = getCompanies();
   const founders = getFounders();
