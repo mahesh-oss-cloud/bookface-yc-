@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Download, Eye, EyeOff, LockKeyhole, Mail, X } from "lucide-react";
 
+type InstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform?: string }>;
+};
+
 type Props = {
   nextPath: string;
 };
@@ -17,26 +22,54 @@ export default function SignInForm({ nextPath }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [installPrompt, setInstallPrompt] = useState<any>(null);
+  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [showInstallHelp, setShowInstallHelp] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
+    const standalone = window.matchMedia("(display-mode: standalone)").matches ||
+      (navigator as Navigator & { standalone?: boolean }).standalone === true;
+    setIsInstalled(standalone);
+
     const handleInstallAvailable = (event: Event) => {
       event.preventDefault();
-      setInstallPrompt(event);
+      setInstallPrompt(event as InstallPromptEvent);
     };
+    const handleInstalled = () => {
+      setIsInstalled(true);
+      setInstallPrompt(null);
+      setShowInstallHelp(false);
+    };
+
     window.addEventListener("beforeinstallprompt", handleInstallAvailable);
-    return () => window.removeEventListener("beforeinstallprompt", handleInstallAvailable);
+    window.addEventListener("appinstalled", handleInstalled);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleInstallAvailable);
+      window.removeEventListener("appinstalled", handleInstalled);
+    };
   }, []);
 
   async function installApp() {
-    if (installPrompt) {
-      await installPrompt.prompt();
-      await installPrompt.userChoice;
-      setInstallPrompt(null);
+    if (isInstalled) {
+      setShowInstallHelp(true);
       return;
     }
-    setShowInstallHelp((value) => !value);
+    if (installPrompt) {
+      try {
+        await installPrompt.prompt();
+        const choice = await installPrompt.userChoice;
+        if (choice.outcome === "accepted") setIsInstalled(true);
+        else setShowInstallHelp(true);
+      } catch {
+        setShowInstallHelp(true);
+      } finally {
+        setInstallPrompt(null);
+      }
+      return;
+    }
+    // Some browsers (notably iOS Safari and in-app webviews) do not expose
+    // beforeinstallprompt. Always provide an actionable installation guide.
+    setShowInstallHelp(true);
   }
 
   useEffect(() => {
@@ -119,9 +152,19 @@ export default function SignInForm({ nextPath }: Props) {
           Bookface is a private community for Y Combinator founders.
         </p>
 
-        <button type="button" onClick={openLogin} className="btn btn-accent btn-lg mt-7">
-          Login <ArrowRight size={15} />
-        </button>
+        <div className="mt-7 flex flex-wrap items-center gap-3">
+          <button type="button" onClick={openLogin} className="btn btn-accent btn-lg">
+            Login <ArrowRight size={15} />
+          </button>
+          <button
+            type="button"
+            onClick={installApp}
+            className="btn btn-lg"
+            aria-expanded={showInstallHelp}
+          >
+            <Download size={15} /> {isInstalled ? "App installed" : "Install app"}
+          </button>
+        </div>
 
         <p className="mt-9 max-w-[760px] text-[14px] leading-[1.85] text-2 sm:text-[15px]">
           Bookface helps YC founders connect with one another — imagine a combination of Facebook,
@@ -262,6 +305,69 @@ export default function SignInForm({ nextPath }: Props) {
                 Bookface is only for YC founders and alumni. Access is currently limited to approved accounts.
               </p>
             </form>
+          </section>
+        </div>
+      )}
+
+      {showInstallHelp && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 px-4 py-6"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setShowInstallHelp(false);
+          }}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="bookface-install-title"
+            className="w-full max-w-[440px] rounded-xl border border-[var(--color-line)] bg-white p-6 shadow-2xl sm:p-8"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="kicker mb-2">Bookface for your device</div>
+                <h2 id="bookface-install-title" className="text-[27px] leading-tight">
+                  {isInstalled ? "Bookface is installed." : "Install Bookface."}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowInstallHelp(false)}
+                className="rounded-md p-1.5 text-3 hover:bg-[var(--color-surface)]"
+                aria-label="Close install instructions"
+              >
+                <X size={17} />
+              </button>
+            </div>
+            {isInstalled ? (
+              <p className="mt-4 text-[13px] leading-relaxed text-2">
+                Open Bookface from your device’s home screen or app launcher.
+              </p>
+            ) : (
+              <div className="mt-4 space-y-4 text-[13px] leading-relaxed text-2">
+                <div>
+                  <p className="font-semibold text-[var(--color-ink)]">Android · Chrome</p>
+                  <p>Open this site directly in Chrome, tap the three-dot menu, then choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-[var(--color-ink)]">iPhone · Safari</p>
+                  <p>Tap Share, then <strong>Add to Home Screen</strong>.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-[var(--color-ink)]">Desktop · Chrome or Edge</p>
+                  <p>Use the install icon in the address bar, or choose <strong>Install Bookface</strong> from the browser menu.</p>
+                </div>
+                <p className="rounded-lg bg-[var(--color-surface)] p-3 text-[11.5px]">
+                  The browser controls the native install prompt. Some in-app browsers do not support it; opening Bookface in Chrome or Safari enables the supported installation path.
+                </p>
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={() => setShowInstallHelp(false)}
+              className="btn btn-accent btn-lg mt-6 w-full justify-center"
+            >
+              Done
+            </button>
           </section>
         </div>
       )}
