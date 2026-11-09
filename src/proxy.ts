@@ -1,11 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
+import { getBookfaceAccount } from "@/lib/accounts";
 
 const SESSION_COOKIE = "bookface_session";
 const SIGN_IN_PATH = "/signin";
 
-// Only static assets needed by the public sign-in screen and PWA shell are public.
-// All application pages and data APIs are protected, including paths containing dots.
 const PUBLIC_ASSET_PATHS = new Set([
   "/favicon.ico",
   "/manifest.webmanifest",
@@ -21,9 +20,7 @@ const PUBLIC_ASSET_PATHS = new Set([
 
 function isValidSession(token: string | undefined): boolean {
   const secret = process.env.BOOKFACE_SESSION_SECRET;
-  const allowedEmail = process.env.BOOKFACE_LOGIN_EMAIL?.trim().toLowerCase();
-
-  if (!token || !secret || !allowedEmail) return false;
+  if (!token || !secret) return false;
 
   const [encodedPayload, encodedSignature, extra] = token.split(".");
   if (!encodedPayload || !encodedSignature || extra) return false;
@@ -39,9 +36,10 @@ function isValidSession(token: string | undefined): boolean {
       Buffer.from(encodedPayload, "base64url").toString("utf8")
     ) as { email?: string; exp?: number };
 
+    const email = typeof session.email === "string" ? session.email.trim().toLowerCase() : "";
     return (
-      typeof session.email === "string" &&
-      session.email.toLowerCase() === allowedEmail &&
+      Boolean(email) &&
+      getBookfaceAccount(email) !== null &&
       typeof session.exp === "number" &&
       session.exp > Math.floor(Date.now() / 1000)
     );
@@ -53,12 +51,10 @@ function isValidSession(token: string | undefined): boolean {
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Keep public sign-in branding and PWA resources available before login.
   if (PUBLIC_ASSET_PATHS.has(pathname)) {
     return NextResponse.next();
   }
 
-  // The login and logout handlers must be reachable before a session exists.
   if (pathname === "/api/auth/login" || pathname === "/api/auth/logout") {
     return NextResponse.next();
   }
@@ -80,7 +76,6 @@ export function proxy(request: NextRequest) {
       signInUrl.searchParams.set("next", requestedPath);
     }
     const response = NextResponse.redirect(signInUrl);
-    // Clear stale or invalid cookies so an expired browser session cannot linger.
     response.cookies.delete(SESSION_COOKIE);
     return response;
   }
@@ -89,7 +84,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Do not use a blanket "contains a dot" exclusion: that can leave dotted
-  // application routes outside the authentication gate.
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
