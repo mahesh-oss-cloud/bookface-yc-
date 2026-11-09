@@ -11,13 +11,16 @@ export default function NetworkPortrait({
   name: string;
 }) {
   const [failed, setFailed] = useState(false);
+  const portraitSrc = id === "jensen-huang"
+    ? "/network/jensen-huang.jpg"
+    : `/api/network-images/${encodeURIComponent(id)}?v=3`;
 
   return (
     <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-surface)]">
       {!failed ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src={`/api/network-images/${encodeURIComponent(id)}?v=3`}
+          src={portraitSrc}
           alt={name}
           loading="lazy"
           decoding="async"
