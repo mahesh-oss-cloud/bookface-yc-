@@ -368,7 +368,7 @@ body {
     min-height: min(72dvh, 680px) !important;
   }
 
-  .mobile-messenger .max-h-\\[560px\\] {
+  .mobile-messenger [class~="max-h-[560px]"] {
     max-height: 68dvh;
   }
 }
