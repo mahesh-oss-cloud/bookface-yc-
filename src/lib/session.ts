@@ -1,5 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
+import { getBookfaceAccount } from "@/lib/accounts";
 
 const SESSION_COOKIE = "bookface_session";
 
@@ -14,10 +15,8 @@ type SessionPayload = {
 };
 
 export async function getBookfaceSession(): Promise<BookfaceSession | null> {
-  const allowedEmail = process.env.BOOKFACE_LOGIN_EMAIL?.trim().toLowerCase();
   const sessionSecret = process.env.BOOKFACE_SESSION_SECRET;
-
-  if (!allowedEmail || !sessionSecret) return null;
+  if (!sessionSecret) return null;
 
   const cookieStore = await cookies();
   const cookieValue = cookieStore.get(SESSION_COOKIE)?.value;
@@ -45,7 +44,8 @@ export async function getBookfaceSession(): Promise<BookfaceSession | null> {
     const email = typeof decoded.email === "string" ? decoded.email.trim().toLowerCase() : "";
 
     if (
-      email !== allowedEmail ||
+      !email ||
+      !getBookfaceAccount(email) ||
       !Number.isInteger(expiresAt) ||
       expiresAt <= Math.floor(Date.now() / 1000)
     ) {
