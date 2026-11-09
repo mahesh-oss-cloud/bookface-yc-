@@ -55,5 +55,5 @@ export default async function MessagesPage({ searchParams }: { searchParams: SP 
           }
         : null;
 
-  return <Messenger initialContact={initialContact} accountEmail={session.email} />;
+  return <Messenger key={session.email} initialContact={initialContact} accountEmail={session.email} />;
 }
