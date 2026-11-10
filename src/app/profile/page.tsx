@@ -43,9 +43,9 @@ export default async function MyProfilePage() {
     <div className="shell py-10 md:py-14">
       <div className="mb-8">
         <div className="kicker mb-2">Your Bookface account</div>
-        <h1 className="text-[34px] md:text-[44px]">Founder profile</h1>
+        <h1 className="text-[34px] md:text-[44px]">Team profile</h1>
         <p className="mt-2 max-w-[680px] text-[14px] leading-relaxed text-2">
-          Your account is connected to your founder profile and company.
+          Your account is connected to your team profile and company.
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export default async function MyProfilePage() {
               </p>
             )}
             <p className="mt-4 max-w-[760px] text-[14px] leading-[1.8] text-2">
-              {founder.bio || "Founder profile connected to your Bookface account."}
+              {founder.bio || "Team profile connected to your Bookface account."}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {founder.industry.map((item) => <span key={item} className="chip">{item}</span>)}
@@ -108,7 +108,7 @@ export default async function MyProfilePage() {
             <p className="mt-6 text-[13.5px] leading-[1.85] text-2">{company.description}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               <a href={company.website} target="_blank" rel="noopener noreferrer" className="btn">
-                Blackbird Finance website <ExternalLink size={13} />
+                {company.name} website <ExternalLink size={13} />
               </a>
               <Link href={`/companies/${company.id}`} className="btn">
                 Company directory profile <ArrowUpRight size={14} />
@@ -135,11 +135,11 @@ export default async function MyProfilePage() {
         <section className="mt-12">
           <div className="mb-4 flex items-end justify-between gap-4">
             <div>
-              <div className="kicker mb-1.5">The founding team</div>
-              <h2 className="text-[25px] md:text-[29px]">Building Blackbird together.</h2>
+              <div className="kicker mb-1.5">The team</div>
+              <h2 className="text-[25px] md:text-[29px]">Building Tesser together.</h2>
             </div>
-            <Link href="/founders?q=Blackbird" className="btn btn-sm hidden sm:inline-flex">
-              All founders <ArrowUpRight size={13} />
+            <Link href="/founders?q=Tesser" className="btn btn-sm hidden sm:inline-flex">
+              All team members <ArrowUpRight size={13} />
             </Link>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
