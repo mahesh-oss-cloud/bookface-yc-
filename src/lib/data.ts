@@ -36,81 +36,20 @@ export type Founder = {
   groupPartner?: string;
 };
 
-const BLACKBIRD_FOUNDERS: Founder[] = [
+const TESSER_ADDITIONAL_FOUNDERS: Founder[] = [
   {
     id: "mahesh-bal",
     name: "Mahesh Bal",
     image: null,
-    company: "Blackbird Finance",
-    companySlug: "blackbird",
-    role: "Founder & CFO",
+    company: "Tesser",
+    companySlug: "tesser",
+    role: "COO",
     batch: "W27",
     location: "Hyderabad, India",
-    industry: ["Fintech", "B2B", "SaaS"],
-    top: true,
-    bio: "Mahesh is a student founder building at the intersection of finance and AI. As Blackbird Finance's founder and CFO, he leads the company's finances and works on product and regulatory workflows—especially the documentation behind cross-border service payments, GST and export compliance. He writes about GST on exports, the Export Declaration Form (EDF), FIRCs and income tax for Indian freelancers.",
-  },
-  {
-    id: "saharsh-keerthi",
-    name: "Saharsh Keerthi",
-    image: null,
-    company: "Blackbird Finance",
-    companySlug: "blackbird",
-    role: "Co-founder & CEO",
-    batch: "W27",
-    location: "Hyderabad, India",
-    industry: ["Fintech", "B2B", "SaaS"],
-    top: true,
-    bio: "Saharsh leads Blackbird Finance as CEO, focusing the company on freelancers, developers and agencies in India that bill clients abroad. He shapes the company's customer direction and product priorities.",
-  },
-  {
-    id: "arhaan-rahil-mohammed",
-    name: "Arhaan Rahil Mohammed",
-    image: null,
-    company: "Blackbird Finance",
-    companySlug: "blackbird",
-    role: "Co-founder & CTO",
-    batch: "W27",
-    location: "Hyderabad, India",
-    industry: ["Fintech", "B2B", "SaaS"],
-    top: true,
-    bio: "Arhaan leads Blackbird Finance's technology and security, including the app, customer-data protections and the files the product prepares, such as GSTR-1 and the Export Declaration Form (EDF).",
-  },
-  {
-    id: "satwik-reddy",
-    name: "Satwik Reddy",
-    image: null,
-    company: "Blackbird Finance",
-    companySlug: "blackbird",
-    role: "Co-founder & COO",
-    batch: "W27",
-    location: "Hyderabad, India",
-    industry: ["Fintech", "B2B", "SaaS"],
-    top: true,
-    bio: "Satwik runs Blackbird Finance's operations, including the compliance calendar and the GST, EDF and income-tax deadlines that customers need to keep track of.",
+    industry: ["B2B", "Infrastructure"],
+    top: false,
   },
 ];
-
-const BLACKBIRD_COMPANY: Company = {
-  id: "blackbird",
-  name: "Blackbird Finance",
-  oneLiner: "A financial OS for Indian freelancers, developers and agencies billing clients abroad.",
-  batch: "Winter 2027",
-  batchShort: "W27",
-  location: "Hyderabad, Telangana, India",
-  industry: ["Fintech", "B2B", "SaaS"],
-  tags: ["GST", "Export compliance", "Invoicing", "AI"],
-  logo: "/blackbird.png",
-  website: "https://www.blackbirdfinance.net",
-  launchedYear: 2026,
-  teamSize: 4,
-  status: "Active",
-  top: true,
-  groupPartner: "Jared Friedman",
-  primaryPartner: "Jared Friedman",
-  description:
-    "Blackbird Finance is a financial OS for freelancers, developers and agencies in India who bill clients abroad. It brings export invoicing, payment matching, GST preparation, monthly Export Declaration Form (EDF) preparation and income-tax estimates into one workflow. Blackbird prepares the records customers and their CAs need; customers remain in control of filing and their existing payment providers.",
-};
 
 let companyCache: Company[] | null = null;
 let founderCache: Founder[] | null = null;
@@ -123,9 +62,7 @@ function readJson<T>(file: string): T {
 export function getCompanies(): Company[] {
   if (!companyCache) {
     const raw = readJson<Company[]>("companies.json");
-    companyCache = [
-      BLACKBIRD_COMPANY,
-      ...raw.map((company) => {
+    companyCache = raw.map((company) => {
         const source = company as Company & {
           primaryPartner?: string;
           groupPartner?: string;
@@ -137,8 +74,7 @@ export function getCompanies(): Company[] {
           source.partner?.trim() ||
           undefined;
         return { ...company, groupPartner };
-      }),
-    ];
+      });
   }
   return companyCache;
 }
@@ -149,7 +85,9 @@ export function getFounders(): Founder[] {
     const partnerByCompany = new Map(
       getCompanies().map((company) => [company.id, company.groupPartner] as const)
     );
-    founderCache = [...BLACKBIRD_FOUNDERS, ...raw].map((founder) => ({
+    founderCache = [...raw, ...TESSER_ADDITIONAL_FOUNDERS]
+      .sort((a, b) => a.id.localeCompare(b.id))
+      .map((founder) => ({
       ...founder,
       groupPartner: founder.companySlug ? partnerByCompany.get(founder.companySlug) : undefined,
     }));
