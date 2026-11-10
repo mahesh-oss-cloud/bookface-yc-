@@ -1,3 +1,4 @@
+import { createElement } from "react";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
@@ -5,10 +6,17 @@ export const runtime = "edge";
 const logo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADABAMAAACg8nE0AAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArLIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAAGFBMVEX////+///9tpb8ZR/8ZR78ZR37ZR77Yhdn2oUWAAAEJUlEQVR42u2aPW/bSBCG36WIwxW2uSu4NBI5QHonxVUXWwbyF+73SgmuTpQgzRU504ZLQbsiBFxwEbkpZijJCiVR5LIJhg0NLsVn53t2YPUW3V4RBCAAAQhAAAIQgAAEIAABCEAAAhDArwOI9y16R3ezf13ppoAXDLA71nsvCDBrCIj6ffpj+an6BTOg+1m6+yNqz7Sl/5W2buLTyvV5QToy+3S0T4LEE8C9dJVfiPI72uQr18yLPsNba63105tKE/9pvbXWejxv6KbFUO21MeAAQEVpQ8BZqdu7SkUuSi/t3zcNtEcG+HGlkscWAJS6bhrJKr1kgqswgh+Q6rQudFMJ/CXFsJ9WrV7w/XzeOBedxqDN+b9/1lHGTqwGk8YA5Uy5u6uffznmcL7QzbPphyuWYNqviALXPl0ro9nf/fbXemU+OU9bAE5BRvD2/fbS5YicFLhvI8HCuB1GKJ+bG92moq2NkGyZ4IJMoHtFq5J5ZsyudOTZSmm7mlxGgo2fWnkxuicTDA4AuOrt5P/zG33g23f/++bC/8V/3wCY/h/zVhL45Dbh+v4k6fshmcDFacu25TTiUJgOnjxfkgmMvm8JyN6XKfvRPakFtHN1wEkPAzwuqawh3YyEqxF3RHnrzu6Ea8JsMxJ8wsXsfN6+dVy98bDhezkXG0xaA1TGjaN9WBtBjUhv5lq3l6DcoytWRvCa4lijCNBdJ7dkhbPZyggZJ6LssAlqAPKoTJ/b76oaJqgBUJlRAKBsVhohGrlaqbrmAeTDkBTvJ6uGhet9nCMEoGzw3Ko7uigPHu+CANQXLjrLrXKmDztpvTOae6XJCFwTFp6rZYEwgIQSqsf4ihORBwBTw0nrAfKY23ibcCKitr2Gk9YDKGc2QyLLXc1UfcQ5ueyOBgBek4aUrvXLWoC7W7N2H++4xYhmwQBlPPnpAOhx2276k2AAtSA/clAONiUbmzc6GACTYVkTgNd35KQ9H3AYcqIMRUIKP+Nzh3kXEKAey+nHDZ7xs2HQcU5KbuSW6ME6AMYsdUjACTmqt/GcVX+wpTsOoLgHdmNQvVcHW7ojJ15ftAaAxA0tGflN6JEa93fLJZ07jNdhAfktpyPa/zyeh5aARHAYc1edhgZkXHX4PDtAaAB3plxrzPPggCVHAoVB/G9wgIo3GgozdMEBcEavJwxJB4CvG9ktLnR4gI9XHzV6jPAANV+X+Wt0AMBkNSM3SncByHmMClPfSY8C6HLfSrtOAMi4KFQM8MIAHmhEqEzSEQBIqI3MOwNQcxSl3QLK4tYdAAIQgAAEIAABCEAAAhCAAATwCwBU1wAL7P6vu+orPuLdgr6tjhIkPkpDBEi6ksDHf5EkH7uS4BlNWXxXEoDHvqYzwJEOJKlCAAIQgAAEIAABCEAAAhCAAAQQ+PoBPV9JJWuKgwAAAAAASUVORK5CYII=";
 
 export async function GET() {
-  return new ImageResponse(
-    <div style={{ width: "100%", height: "100%", display: "flex" }}>
-      <img src={logo} width="512" height="512" style={{ width: "100%", height: "100%" }} />
-    </div>,
-    { width: 512, height: 512 }
+  const image = createElement("img", {
+    src: logo,
+    width: 512,
+    height: 512,
+    style: { width: "100%", height: "100%" },
+  });
+  const content = createElement(
+    "div",
+    { style: { width: "100%", height: "100%", display: "flex" } },
+    image
   );
+
+  return new ImageResponse(content, { width: 512, height: 512 });
 }
