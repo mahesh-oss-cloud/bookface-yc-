@@ -15,7 +15,6 @@ const PUBLIC_ASSET_PATHS = new Set([
   "/apple-icon.png",
   "/yc-logo.svg",
   "/yc-logo-192.png",
-  "/yc-logo-512.png",
   "/sw.js",
 ]);
 
