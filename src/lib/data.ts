@@ -63,18 +63,18 @@ export function getCompanies(): Company[] {
   if (!companyCache) {
     const raw = readJson<Company[]>("companies.json");
     companyCache = raw.map((company) => {
-        const source = company as Company & {
-          primaryPartner?: string;
-          groupPartner?: string;
-          partner?: string;
-        };
-        const groupPartner =
-          source.groupPartner?.trim() ||
-          source.primaryPartner?.trim() ||
-          source.partner?.trim() ||
-          undefined;
-        return { ...company, groupPartner };
-      });
+      const source = company as Company & {
+        primaryPartner?: string;
+        groupPartner?: string;
+        partner?: string;
+      };
+      const groupPartner =
+        source.groupPartner?.trim() ||
+        source.primaryPartner?.trim() ||
+        source.partner?.trim() ||
+        undefined;
+      return { ...company, groupPartner };
+    });
   }
   return companyCache;
 }
@@ -88,9 +88,9 @@ export function getFounders(): Founder[] {
     founderCache = [...raw, ...TESSER_ADDITIONAL_FOUNDERS]
       .sort((a, b) => a.id.localeCompare(b.id))
       .map((founder) => ({
-      ...founder,
-      groupPartner: founder.companySlug ? partnerByCompany.get(founder.companySlug) : undefined,
-    }));
+        ...founder,
+        groupPartner: founder.companySlug ? partnerByCompany.get(founder.companySlug) : undefined,
+      }));
   }
   return founderCache;
 }
