@@ -27,6 +27,7 @@ export default function MobileTabBar() {
             <Link
               key={href}
               href={href}
+              prefetch={true}
               aria-current={active ? "page" : undefined}
               className={`mobile-tabbar-link ${active ? "is-active" : ""}`}
             >
