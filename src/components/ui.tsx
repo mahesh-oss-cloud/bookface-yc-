@@ -106,7 +106,10 @@ export function BatchChip({ batch }: { batch: string }) {
   if (!batch) return null;
   return (
     <span className="batch-chip" title={batchLabel(batch)}>
-      {batch}
+      {/* The orange YC mark is part of the batch badge, matching the reference directory style. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/yc-logo.svg" alt="" aria-hidden="true" className="batch-chip-mark" />
+      <span>{batchLabel(batch)}</span>
     </span>
   );
 }
