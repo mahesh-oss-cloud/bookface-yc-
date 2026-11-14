@@ -136,7 +136,7 @@ export default async function MyProfilePage() {
           <div className="mb-4 flex items-end justify-between gap-4">
             <div>
               <div className="kicker mb-1.5">The team</div>
-              <h2 className="text-[25px] md:text-[29px]">Building {company.name} together.</h2>
+              <h2 className="text-[25px] md:text-[29px]">Building {founder.company} together.</h2>
             </div>
             <Link href={"/founders?q=" + encodeURIComponent(founder.company)} className="btn btn-sm hidden sm:inline-flex">
               All team members <ArrowUpRight size={13} />
