@@ -1,5 +1,5 @@
-const CACHE_NAME = "bookface-static-v2";
-const STATIC_ASSETS = ["/icon.svg", "/yc-logo.svg", "/yc-logo-192.png"];
+const CACHE_NAME = "bookface-static-v3";
+const STATIC_ASSETS = ["/icon.svg", "/yc-logo.svg", "/yc-logo-192.png", "/blackbird.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
