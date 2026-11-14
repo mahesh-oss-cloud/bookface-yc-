@@ -153,7 +153,11 @@ export function FounderRow({ founder }: { founder: Founder }) {
       <div className="flex flex-wrap items-center gap-2 sm:max-w-[48%] sm:justify-end">
         <BatchChip batch={founder.batch} />
         {founder.industry[0] && <span className="chip">{founder.industry[0]}</span>}
-        {founder.location && <span className="chip max-w-[170px] truncate">{founder.location}</span>}
+        {founder.location && (
+          <span className="chip chip-location" title={founder.location}>
+            {founder.location}
+          </span>
+        )}
         {founder.groupPartner && <PartnerInline name={founder.groupPartner} />}
       </div>
       <MessageLink founderId={founder.id} small />
@@ -177,7 +181,11 @@ export function CompanyRow({ company }: { company: Company }) {
       <div className="flex flex-wrap items-center gap-2 sm:max-w-[52%] sm:justify-end">
         <BatchChip batch={company.batchShort} />
         {company.industry[0] && <span className="chip">{company.industry[0]}</span>}
-        {company.location && <span className="chip max-w-[160px] truncate">{company.location.split(",")[0]}</span>}
+        {company.location && (
+          <span className="chip chip-location" title={company.location}>
+            {company.location.split(",")[0]}
+          </span>
+        )}
         {company.groupPartner && <PartnerInline name={company.groupPartner} />}
       </div>
       <Link href={`/companies/${company.id}`} className="btn btn-sm btn-ghost shrink-0" aria-label={`View ${company.name}`}>

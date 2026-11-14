@@ -414,3 +414,15 @@ body {
     padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+
+/* Country/location chips must remain fully readable, including long names. */
+.chip-location {
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
